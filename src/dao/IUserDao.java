@@ -16,4 +16,6 @@ public interface IUserDao {
     User findById(int id);
     List<User> findAll();
     boolean deleteById(int id);
+    void insert(User user);
+    void update(int id, User newUser);
 }

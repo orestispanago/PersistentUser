@@ -13,17 +13,19 @@ import java.util.List;
  * @author mac
  */
 public class UserImpl implements IUser {
+
     private dao.UserDaoImpl userDao;
+
     // BUSINESS LOGIC
     @Override
     public User findById(int id) {
-        if(id <= 0) 
+        if (id <= 0) {
             return null;
-        else {
+        } else {
             // DAO = Data Access Object
             userDao = new dao.UserDaoImpl();
             return userDao.findById(id);
-        } 
+        }
     }
 
     @Override
@@ -33,16 +35,22 @@ public class UserImpl implements IUser {
 
     @Override
     public boolean deleteById(int id) {
-        if(id <= 0) 
+        if (id <= 0) {
             return false;
-        else {
+        } else {
             return userDao.deleteById(id);
         }
-        
+
     }
-    
-    
-    
-    
-    
+
+    @Override
+    public void insert(User user) {
+        userDao.insert(user);
+    }
+
+    @Override
+    public void update(int id, User newUser) {
+        userDao.update(id, newUser);
+    }
+
 }

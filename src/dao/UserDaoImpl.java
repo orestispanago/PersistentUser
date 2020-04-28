@@ -16,9 +16,10 @@ import javax.persistence.Persistence;
  * @author mac
  */
 public class UserDaoImpl implements IUserDao {
+
     private EntityManagerFactory emf;
     private EntityManager em;
-    
+
     public UserDaoImpl() {
         emf = Persistence.createEntityManagerFactory("PeristentUserPU");
         em = emf.createEntityManager();
@@ -39,17 +40,34 @@ public class UserDaoImpl implements IUserDao {
     public boolean deleteById(int id) {
         em.getTransaction().begin();
         User user = em.find(User.class, id);
-        if(user != null) {
+        if (user != null) {
             em.remove(user);
             em.getTransaction().commit();
             return true;
-        }
-        else {
+        } else {
             em.getTransaction().commit();
             return false;
         }
-            
+
     }
-    
-    
+
+    @Override
+    public void insert(User user) {
+        em.getTransaction().begin();
+        em.persist(user);
+        em.getTransaction().commit();
+        System.out.println("User :" + user + " inserted sucessfully");
+    }
+
+    @Override
+    public void update(int id, User newUser) {
+        User oldUser = findById(id);
+        em.getTransaction().begin();
+        oldUser.setFirstName(newUser.getFirstName());
+        oldUser.setLastName(newUser.getLastName());
+        oldUser.setTel(newUser.getTel());
+        oldUser.setEmail(newUser.getEmail());
+        em.getTransaction().commit();
+    }
+
 }

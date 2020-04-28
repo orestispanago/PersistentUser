@@ -16,5 +16,7 @@ public interface IUser {
     User findById(int id);
     List<User> findAll();
     boolean deleteById(int id);
+    void insert(User user);
+    void update(int id, User newUser);
     
 }
